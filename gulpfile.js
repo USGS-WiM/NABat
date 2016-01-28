@@ -4,6 +4,7 @@
 var gulp = require('gulp');
 var open = require('open');
 var del = require('del');
+var less = require('gulp-less');
 var wiredep = require('wiredep').stream;
 
 // Load plugins
@@ -18,6 +19,14 @@ var $ = require('gulp-load-plugins')();
 
 
 //copy leaflet images
+
+//less compilation
+gulp.task('less', function () {
+    return gulp.src(['src/less/base.less'])
+        .pipe(less())
+        .pipe(gulp.dest('src/styles'))
+        .pipe(gulp.dest('build/styles'))
+});
 
 
 // Styles
@@ -81,7 +90,7 @@ gulp.task('clean', function (cb) {
 });
 
 // Build
-gulp.task('build', ['html', 'images']);
+gulp.task('build', ['html', 'images', 'less']);
 
 // Default task
 //make sure download-esri-api (if needed) is run just after clean, but before build
@@ -122,11 +131,12 @@ gulp.task('wiredep', function () {
 });
 
 // Watch
-gulp.task('watch', ['connect', 'serve'], function () {
+gulp.task('watch', ['less', 'connect', 'serve'], function () {
     // Watch for changes in `app` folder
     gulp.watch([
         'src/*.html',
         'src/styles/**/*.css',
+        'src/less/**/*.less',
         'src/scripts/**/*.js',
         'src/images/**/*'
     ], function (event) {

@@ -253,6 +253,21 @@ body {
     width:inherit;
 }
 
+/*.navbar-title {*/
+    /*font-size:25px;*/
+/*}*/
+
+.navbar-title {
+    font-size: 25px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    padding-bottom: 0px;
+    line-height: 18px;
+    display:inline-block;
+    padding-top: 15px
+}
+
+
 .no-col-padding {
     padding: 0;
 }

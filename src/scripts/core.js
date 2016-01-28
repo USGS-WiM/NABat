@@ -885,7 +885,6 @@ require([
             }
         }
         /* parse layers.js */
-
         var legend = new Legend({
             map: map,
             layerInfos: legendLayers
