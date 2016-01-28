@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!--IMPORTANT: update the event name below for page title -->
+    <title>NABat | USGS</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <!-- build:css styles/vendor.css -->
+    <!-- bower:css -->
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="bower_components/fontawesome/css/font-awesome.min.css">
+
+    
+    <link rel="stylesheet" href="bower_components/bootstrap-map-js/dist/css/bootstrapmap.min.css">
+    
+    <link rel="stylesheet" href="bower_components/bootstrap-sidebar/dist/css/sidebar.css">
+    
+    <!-- endbower -->
+    <!-- endbuild -->
+    <!-- CSS for the mapping components -->
+    <link rel="stylesheet" href="http://js.arcgis.com/3.13/esri/css/esri.css">
+
+    <!-- build:css styles/main.css -->
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/base.css">
+    <link rel="stylesheet" href="bower_components/themify-icons/themify-icons.css">
+    <link rel="stylesheet" href="bower_components/Ionicons/css/ionicons.css">
+    <!-- endbuild -->
+    <link rel="shortcut icon" href="/favicon.ico">
+
+    <!-- build:js scripts/vendor.js -->
+    <!-- bower:js -->
+    <script src="bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="bower_components/jquery.nicescroll/dist/jquery.nicescroll.min.js"></script>
+    <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="bower_components/bootstrap-sidebar/dist/js/sidebar.js"></script>
+
+    
+    <!-- endbower -->
+    <!-- endbuild -->
+
+    <script src="http://js.arcgis.com/3.13/"></script>
+
+    <!-- build:js scripts/combined.js -->
+    <script src="scripts/utilities.js"></script>
+    <script src="scripts/layers.js"></script>
+    <script src="scripts/core.js"></script>
+    <!-- endbuild -->
+
+</head>
+<body>
+
+<div id="navbar" class="navbar navbar-static navbar-default navbar-fixed-top navbar-dark">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle toggle-left hidden-md hidden-lg" data-toggle="sidebar" data-target=".sidebar-left">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="http://usgs.gov">
+                <img alt="USGS logo" height="38px" src="images/USGS_ID_white.png">
+                <span class='hidden-xs' style='font-size:20px;display:inline-block;'>&nbsp;&nbsp;North American Bat Monitoring Program</span>
+            </a>
+        </div>
+
+        <button id="geosearchNav" type="button" class="btn btn-primary navbar-btn pull-right">
+            <span class="glyphicon glyphicon-search"></span>
+            <span id="geosearchButtonText"> Geosearch</span>
+        </button>
+
+        <button id="aboutNav" class="btn btn-default navbar-btn pull-right">
+            <i class="fa fa-question-circle"></i><span class="hidden-xs">&nbsp;&nbsp;About</span>
+        </button>
+
+    </div>
+</div>
+
+<!--<div class="modal fade" id="disclaimerModal">-->
+    <!--<div class="modal-dialog">-->
+        <!--<div class="modal-content">-->
+            <!--<div class="modal-header">-->
+                <!--&lt;!&ndash;<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>&ndash;&gt;-->
+                <!--&lt;!&ndash;<h4 class="modal-title">{Event Name} Data Viewer</h4>&ndash;&gt;-->
+                <!--<h4>Welcome to the USGS NABat Application</h4><i class="fa fa-exclamation-triangle fa-lg"></i> Please read the following message before continuing.-->
+            <!--</div>-->
+            <!--<div class="modal-body">-->
+                <!--&lt;!&ndash;<h4>Welcome to the {Event Name} Data Viewer</h4><b>Please read the following message before continuing.</b>&ndash;&gt;-->
+                <!--<p>Data are provisional and are subject to revision until thoroughly reviewed and approved.</p>-->
+                <!--<p>Real-time data relayed by satellite or other telemetry are automatically screened to not display improbable values until they can be verified.</p>-->
+                <!--<p>Provisional data may be inaccurate due to instrument malfunctions or physical changes at the measurement site. Subsequent review based on field inspections and measurements may result in significant revisions to the data.</p>-->
+                <!--<p>The data are being provided to meet the need for timely best science and are released on the condition that neither the USGS nor the U.S. Government may be held liable for any damages resulting from authorized or unauthorized use of the information. Data users are cautioned to consider carefully the provisional nature of the information before using it for decisions that concern personal or public safety or the conduct of business that involves substantial monetary or operational consequences.</p>-->
+                <!--<p>Information concerning the accuracy and appropriate uses of these data or concerning other hydrologic data may be obtained from the USGS.</p>-->
+            <!--</div>-->
+            <!--<div class="modal-footer">-->
+                <!--<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>-->
+            <!--</div>-->
+        <!--</div>&lt;!&ndash; /.modal-content &ndash;&gt;-->
+    <!--</div>&lt;!&ndash; /.modal-dialog &ndash;&gt;-->
+<!--</div>&lt;!&ndash; /.modal &ndash;&gt;-->
+
+<div id="aboutModal" class="modal fade"  tabindex="-1" role="dialog" >
+    <div class="modal-dialog  modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button class="close" type="button" data-dismiss="modal" aria-hidden="true" style="color:gray;">&times;</button>
+                <h4 class="modal-title">USGS North American Bat Monitoring Program (NABat) Application</h4>
+            </div>
+            <div id="aboutModalBody" class="modal-body">
+                <ul class="nav nav-tabs" id="aboutModalTabs">
+                    <li role="presentation"><a id="aboutTab" href="#aboutTabPane" data-toggle="tab"><i class="fa fa-question-circle"></i>&nbsp;About the application</a></li>
+                    <li role="presentation" class="active"><a id="disclaimerTab" href="#disclaimerTabPane" data-toggle="tab"><i class="fa fa-exclamation-circle"></i>&nbsp;Disclaimer</a></li>
+                </ul>
+                <div class="tab-content">
+                    <div role="tabpanel" class="tab-pane" id="aboutTabPane"></br>
+                        <p style="color:black; font-size: larger">The USGS NABat Application is developed by the Wisconsin Internet Mapping (WiM) group to aid in dissemination of flood sensor data collected in the Short-Term Network database.</p>
+
+                    </div>
+                    <div role="tabpanel" class="tab-pane active" id="disclaimerTabPane"></br>
+                        <h3>Data Limitations</h3>
+                        <p>Data are provisional and are subject to revision until thoroughly reviewed and approved.</p>
+                        <p>Real-time data relayed by satellite or other telemetry are automatically screened to not display improbable values until they can be verified.</p>
+                        <p>Provisional data may be inaccurate due to instrument malfunctions or physical changes at the measurement site. Subsequent review based on field inspections and measurements may result in significant revisions to the data.</p>
+                        <p>The data are being provided to meet the need for timely best science and are released on the condition that neither the USGS nor the U.S. Government may be held liable for any damages resulting from authorized or unauthorized use of the information. Data users are cautioned to consider carefully the provisional nature of the information before using it for decisions that concern personal or public safety or the conduct of business that involves substantial monetary or operational consequences.</p>
+                        <p>Information concerning the accuracy and appropriate uses of these data or concerning other hydrologic data may be obtained from the USGS.</p>
+
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <p style="color:black; margin-left:35px;text-align:left">
+                    For more information about the NABat Application please contact <a href="http://wim.usgs.gov/" target="_blank"><img src="images/wimvectorxs.png" id="wim_logo"></a>
+                </p>
+                <button class=" btn btn-default close" type="button" data-dismiss="modal" aria-hidden="true" style="color:gray;" class="btn btn-default">Close</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div> <!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
+<div class="modal fade overflow-y-hidden" id="geosearchModal" style="display: none;" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
+                <h4 class="modal-title">Geosearch</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <div id="geosearch"><div id="sapi_searchTextBoxDiv"></div></div>
+                </div>
+                <form id="geosearch-form" class="form-inline">
+                    <div class="checkbox">
+                        <label>
+                            <input id="chkExtent" type="checkbox"> Search in current extent only
+                        </label>
+                    </div>
+                    <button id="btnGeosearch" type="button" class="btn btn-success btn-fixed" data-dismiss="modal"> Go </button>
+                    <button id="btnDismiss" type="submit" class="btn btn-default btn-fixed" data-dismiss="modal">Dismiss</button>
+                </form>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div>
+
+<div id="sensorModal" class="modal fade"  tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button class="close" type="button" data-dismiss="modal" aria-hidden="true" style="color:gray;">&times;</button>
+                <h4 class="modal-title"> <span class="sensorTypeTitle"></span></h4>
+            </div>
+            <div id="sensorModalBody" class="modal-body">
+                <ul class="nav nav-tabs" id="sensorModalTabs">
+                    <li role="presentation"><a id="sensorTab" href="#sensorTabPane" data-toggle="tab"><i class="fa fa-caret-square-o-right"></i>&nbsp;&nbsp;Sensor</a></li>
+                    <li role="presentation"><a class="peaksTab" href="#peaksTabPane" data-toggle="tab"><i class="fa fa-table"></i>&nbsp;&nbsp;Peak Summaries</a></li>
+                </ul>
+                <div class="tab-content">
+                    <div role="tabpanel" class="tab-pane" id="sensorTabPane"></br>
+                        <table class="table table-hover">
+                            <tr><td><strong>Event: </strong></td><td><span id="sensorEvent"></span></td></tr>
+                            <tr><td><strong>City: </strong></td><td><span id="city"></span></td></tr>
+                            <tr><td><strong>County: </strong></td><td><span id="county"></span></td></tr>
+                            <tr><td><strong>State: </strong></td><td><span id="state"></span></td></tr>
+                            <tr><td><strong>Latitude, Longitude (DD): </strong></td><td><span class="latLng"></span></td></tr>
+                            <tr><td><strong>STN Site Name: </strong></td><td><span id="siteName"></span></td></tr>
+                            <tr><td><strong>Status: </strong></td><td><span id="status"></span></td></tr>
+                            <tr><td><strong>Full data link: </strong></td><td><span id="sensorDataLink"></span></td></tr>
+                        </table>
+                        <div id="rdgChartDiv"></div>
+                    </div>
+                    <div role="tabpanel" class="tab-pane" id="peaksTabPane"></br>
+                        <table id="peaksTable" class="table table-condensed table-striped table-hover">
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<div id="hwmModal" class="modal fade"  tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button class="close" type="button" data-dismiss="modal" aria-hidden="true" style="color:gray;">&times;</button>
+                <h4 class="modal-title">High-water Mark <span class="hwmID"></span></h4>
+            </div>
+            <div id="hwmModalBody" class="modal-body">
+                <table class="table table-hover">
+                    <tr><td><strong>Event: </strong></td><td><span id="hwmEvent"></span></td></tr>
+                    <tr><td><strong>Elevation(ft): </strong></td><td><span id="hwmElev"></span></td></tr>
+                    <tr><td><strong>Waterbody: </strong></td><td><span id="hwmWaterbody"></span></td></tr>
+                    <tr><td><strong>County: </strong></td><td><span id="hwmCounty"></span></td></tr>
+                    <tr><td><strong>State: </strong></td><td><span id="hwmState"></span></td></tr>
+                    <tr><td><strong>Latitude, Longitude (DD): </strong></td><td><span class="latLng"></span></td></tr>
+                    <tr><td><strong>HWM ID: </strong></td><td><span class="hwmID"></span></td></tr>
+                    <tr><td><strong>STN Site Name: </strong></td><td><span id="hwmSiteName"></span></td></tr>
+                    <tr><td><strong>Description: </strong></td><td><span id="hwmDescription"></span></td></tr>
+                    <tr><td><strong>Type: </strong></td><td><span id="hwmType"></span></td></tr>
+                    <tr><td><strong>Full data link: </strong></td><td><span id="hwmDataLink"></span></td></tr>
+                </table>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<div id="nwisModal" class="modal fade"  tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-sm nwis-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button class="close" type="button" data-dismiss="modal" aria-hidden="true" style="color:gray;">&times;</button>
+                <h4 class="modal-title">USGS Site <span class="nwisSiteNo"></span></h4>
+            </div>
+            <div id="nwisModalBody" class="modal-body">
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
+
+
+<!-- Begin page content -->
+<div class="container-fluid keepit100">
+    <div class="row keepit100">
+        <!--<div id="sidebar" class="col-xs-7 col-sm-3 col-md-3 sidebar sidebar-left sidebar-animate sidebar-md-show no-col-padding">-->
+        <div id="sidebar" class="col-xs-11 col-sm-10 col-md-3 col-lg-2 sidebar sidebar-left sidebar-animate sidebar-md-show no-col-padding">
+            <div class="panel panel-default wim-sidebar-panel">
+                <div class="panel-heading" id="basemapsHeader">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse"  href="#basemapsPanel" aria-expanded="false" aria-controls="basemapsPanel">
+                            Basemaps
+                        </a>
+                    </h4>
+                </div>
+                <div id="basemapsPanel" class="panel-collapse collapse" role="tabpanel" aria-labelledby="basemapsHeader">
+                    <div class="panel-body collapse in">
+                        <button id="btnStreets" class="btn btn-default basemapBtn equalize"><img class="basemapThumb" alt="" src="images/streets.jpg"><br class="basemapThumb">Streets</button>
+                        <button id="btnSatellite" class="btn btn-default basemapBtn equalize" ><img class="basemapThumb" alt="" src="images/satellite.jpg"><br class="basemapThumb">Satellite</button>
+                        <button id="btnHybrid" class="btn btn-default basemapBtn equalize"><img class="basemapThumb" alt="" src="images/imagery_labels.jpg"><br class="basemapThumb">Hybrid</button>
+                        <button id="btnTopo" class="btn btn-default basemapBtn equalize"><img class="basemapThumb" alt="" src="images/topo.jpg"><br class="basemapThumb">Topo</button>
+                        <button id="btnTerrain" class="btn btn-default basemapBtn equalize"><img class="basemapThumb" alt="" src="images/terrain.jpg"><br class="basemapThumb">Terrain</button>
+                        <button id="btnGray" class="btn btn-default basemapBtn equalize" ><img class="basemapThumb" alt="" src="images/gray.jpg"><br class="basemapThumb">Gray</button>
+                        <button id="btnOSM" class="btn btn-default basemapBtn equalize"><img class="basemapThumb" alt="" src="images/osm.jpg"><br class="basemapThumb">OSM</button>
+                        <button id="btnNatGeo" class="btn btn-default basemapBtn equalize"><img class="basemapThumb" alt="" src="images/natgeo.jpg"><br class="basemapThumb">NatGeo</button>
+                        <button id="btnNatlMap" class="btn btn-default basemapBtn equalize"><img class="basemapThumb" alt="" src="images/national_map.jpg"><br class="basemapThumb">Nat'l Map</button>
+                    </div>
+
+                </div>
+            </div>
+            <div class="panel panel-default wim-sidebar-panel">
+                <div class="panel-heading" id="layersPanelHeader">
+                    <h4 class="panel-title">
+                        <a class="collapsed" data-toggle="collapse" href="#layersPanel" aria-expanded="true" aria-controls="layersPanel">
+                            Map Layers
+                        </a>
+                    </h4>
+                </div>
+                <div id="layersPanel" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="layersPanelHeader">
+                    <div id="toggle" style="padding: 2px 2px;"></div>
+                </div>
+            </div>
+            <!-- # closing div tag for accordion style panels -->
+            <!--</div>-->
+            <div class="identification pull-right">powered by  <a href="http://wim.usgs.gov/" target="_blank">WiM</a></div>
+
+        </div>
+        <div class="col-md-9 col-lg-10 col-md-offset-3 col-lg-offset-2 no-col-padding keepit100">
+
+            <div id="mapDiv">
+
+                <div id="legendElement" class="panel panel-default legendClass">
+                    <div id="legendHeading" class=" legendHeading" role="tab">
+                        <h4 class="panel-title">
+                            <a data-toggle="collapse" style="text-decoration: none"  href="#legendCollapse" aria-expanded="true" aria-controls="collapseOne">
+                                <span class="glyphicon glyphicon-list"></span>
+                                Legend
+                            </a>
+                        </h4>
+                    </div>
+                    <div id="legendCollapse" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+                        <div id="legendDiv" class="panel-body"></div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div id="homeButton"></div>
+
+            <div id="locateButton"></div>
+
+            <div id="latLngScale" class="latLngScale">
+                <span class="hover-content"> <b>Map scale </b></span>
+                1:<span id="scale"></span> <br>
+                <span class="hover-content"><b>Latitude</b></span>
+                <span id="latitude">y</span> |
+                <span class="hover-content"> <b>Longitude</b></span>
+                <span id="longitude">x</span>
+                <span id="mapCenterLabel"  class="hover-content"> (center)</span>
+            </div>
+
+        </div>
+        <div class="col-xs-7 col-sm-3 col-md-3 sidebar sidebar-right sidebar-animate"></div>
+    </div>
+</div>
+</body>
+</html>
