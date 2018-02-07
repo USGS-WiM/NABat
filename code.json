@@ -1,0 +1,44 @@
+[
+  {
+    "name": "NABat",
+    "organization": "U.S. Geological Survey",
+    "description": "Pilot application for National Wildlife Health Center highlighting disease in bats"
+    "version": "v0.0.0",
+    "status": "Archival"
+
+    "permissions": {
+      "usageType": "openSource",
+      "licenses": [
+        {
+          "name": "Public Domain",
+          "URL": "https://github.com/usgs/best-practices/blob/master/LICENSE.md"
+        }
+      ]
+    },
+
+    "homepageURL": "https://wim.usgs.gov",
+    "downloadURL": "https://github.com/USGS-WiM/NABat.git",
+    "disclaimerURL": "https://github.com/USGS-WiM/NABat/blob/master/LICENSE.md",
+    "repositoryUrl": "https://github.com/USGS-WiM/NABat",
+    "vcs": "git",
+
+    "laborHours": null,
+
+    "tags": [
+      "NaBat"
+    ],
+
+    "languages": [
+      "javascript"
+    ],
+
+    "contact": {
+      "name": "Blake Draper",
+      "email": "bdraper@usgs.gov"
+    },
+
+    "date": {
+      "metadataLastUpdated": "2018-02-07"
+    }
+  }
+]
