@@ -2,9 +2,9 @@
   {
     "name": "NABat",
     "organization": "U.S. Geological Survey",
-    "description": "Pilot application for National Wildlife Health Center highlighting disease in bats"
+    "description": "Pilot application for National Wildlife Health Center highlighting disease in bats",
     "version": "v0.0.0",
-    "status": "Archival"
+    "status": "Archival",
 
     "permissions": {
       "usageType": "openSource",
